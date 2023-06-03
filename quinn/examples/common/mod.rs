@@ -53,6 +53,9 @@ fn configure_client(server_certs: &[&[u8]]) -> Result<ClientConfig, Box<dyn Erro
 fn configure_server() -> Result<(ServerConfig, Vec<u8>), Box<dyn Error>> {
     let cert = rcgen::generate_simple_self_signed(vec!["localhost".into()]).unwrap();
     let cert_der = cert.serialize_der().unwrap();
+    println!("{}", cert.serialize_pem().unwrap());
+    println!("{}", cert.serialize_private_key_pem());
+    println!("{}", cert.serialize_request_pem().unwrap());
     let priv_key = cert.serialize_private_key_der();
     let priv_key = rustls::PrivateKey(priv_key);
     let cert_chain = vec![rustls::Certificate(cert_der.clone())];

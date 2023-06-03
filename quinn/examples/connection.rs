@@ -1,4 +1,4 @@
-//! This example intends to use the smallest amount of code to make a simple QUIC connection.
+
 //!
 //! Checkout the `README.md` for guidance.
 

@@ -2077,7 +2077,7 @@ impl Connection {
                     return Err(TransportError::PROTOCOL_VIOLATION("client sent Retry").into());
                 }
 
-                trace!("client odcid {:x?}\nserver odcid {:x?}\nclient retry {:x?}\nserver retry {:x?}", self.initial_dst_cid, params.original_dst_cid, self.retry_src_cid, params.retry_src_cid);
+                // trace!("client odcid {:x?}\nserver odcid {:x?}\nclient retry {:x?}\nserver retry {:x?}", self.initial_dst_cid, params.original_dst_cid, self.retry_src_cid, params.retry_src_cid);
 
                 if self.total_authed_packets > 1
                             || packet.payload.len() <= 16 // token + 16 byte tag
