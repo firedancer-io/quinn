@@ -2,9 +2,8 @@
 
 mod common;
 use std::{
-    fs::{self, File},
+    fs::File,
     io::BufReader,
-    sync::Arc,
 };
 
 use rustls_pemfile::Item;
@@ -20,11 +19,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     )
     .unwrap();
 
-    // let certs = rustls_pemfile::certs(&mut BufReader::new(File::open("./cert.pem")?))?;
-    let f = File::open("./cert.pem").unwrap();
-    let cert = if let Item::X509Certificate(cert) = rustls_pemfile::read_one(&mut BufReader::new(f))
-        .unwrap()
-        .unwrap()
+    let cert = if let Item::X509Certificate(cert) =
+        rustls_pemfile::read_one(&mut BufReader::new(File::open("./cert.pem").unwrap()))
+            .unwrap()
+            .unwrap()
     {
         Some(cert)
     } else {
