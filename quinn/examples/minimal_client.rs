@@ -31,7 +31,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cert = cert.unwrap();
     let endpoint = make_client_endpoint("0.0.0.0:0".parse().unwrap(), &[cert.as_slice()]).unwrap();
     let connection = endpoint
-        .connect("127.0.0.1:9000".parse().unwrap(), "localhost")
+        .connect("127.0.0.1:9001".parse().unwrap(), "localhost")
         .unwrap()
         .await
         .unwrap();
