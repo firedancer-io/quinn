@@ -20,7 +20,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     .unwrap();
 
     let cert = if let Item::X509Certificate(cert) =
-        rustls_pemfile::read_one(&mut BufReader::new(File::open("./cert.pem").unwrap()))
+        rustls_pemfile::read_one(&mut BufReader::new(File::open("../firedancer/cert.pem").unwrap()))
             .unwrap()
             .unwrap()
     {
