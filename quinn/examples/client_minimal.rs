@@ -20,19 +20,20 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     )
     .unwrap();
 
-    let cert = if let Item::X509Certificate(cert) =
-        rustls_pemfile::read_one(&mut BufReader::new(File::open("../firedancer/cert.pem").unwrap()))
-            .unwrap()
-            .unwrap()
-    {
-        Some(cert)
-    } else {
-        None
-    };
-    let cert = cert.unwrap();
-    let endpoint = make_client_endpoint("0.0.0.0:0".parse().unwrap(), &[cert.as_slice()]).unwrap();
+    // let cert = if let Item::X509Certificate(cert) =
+    //     rustls_pemfile::read_one(&mut BufReader::new(File::open("../firedancer/cert.pem").unwrap()))
+    //         .unwrap()
+    //         .unwrap()
+    // {
+    //     Some(cert)
+    // } else {
+    //     None
+    // };
+    // let cert = cert.unwrap();
+    // let endpoint = make_client_endpoint("0.0.0.0:0".parse().unwrap(), &[cert.as_slice()]).unwrap();
+    let endpoint = make_client_endpoint("0.0.0.0:0".parse().unwrap(), &[]).unwrap();
     let connection = endpoint
-        .connect("127.0.0.1:9001".parse().unwrap(), "localhost")
+        .connect("127.0.0.1:1033".parse().unwrap(), "localhost")
         .unwrap()
         .await
         .unwrap();

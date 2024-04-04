@@ -875,7 +875,9 @@ impl ClientConfig {
 
     /// Create a client configuration that trusts specified trust anchors
     pub fn with_root_certificates(roots: rustls::RootCertStore) -> Self {
-        Self::new(Arc::new(crypto::rustls::client_config(roots)))
+        let mut thing = crypto::rustls::client_config(roots);
+        thing.alpn_protocols = vec![b"solana-tpu".to_vec()];
+        Self::new(Arc::new(thing))
     }
 }
 

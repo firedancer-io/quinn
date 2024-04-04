@@ -57,7 +57,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     )?;
 
     let cert = if let Item::X509Certificate(cert) =
-        rustls_pemfile::read_one(&mut BufReader::new(File::open("../firedancer/cert.pem")?))
+        rustls_pemfile::read_one(&mut BufReader::new(File::open("cert.pem")?))
             .unwrap()
             .unwrap()
     {
@@ -85,7 +85,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     endpoint.set_default_client_config(client_config);
 
     let conn = endpoint
-        .connect("127.0.0.1:9001".parse().unwrap(), "localhost")
+        .connect("127.0.0.1:1033".parse().unwrap(), "localhost")
         .unwrap()
         .await
         .unwrap();

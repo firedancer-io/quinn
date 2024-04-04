@@ -7,21 +7,23 @@ use common::{make_client_endpoint, make_server_endpoint};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let server_addr = "127.0.0.1:5000".parse().unwrap();
-    let (endpoint, server_cert) = make_server_endpoint(server_addr)?;
-    // accept a single connection
-    let endpoint2 = endpoint.clone();
-    tokio::spawn(async move {
-        let incoming_conn = endpoint2.accept().await.unwrap();
-        let conn = incoming_conn.await.unwrap();
-        println!(
-            "[server] connection accepted: addr={}",
-            conn.remote_address()
-        );
-        // Dropping all handles associated with a connection implicitly closes it
-    });
+    let server_addr = "127.0.0.1:1033".parse().unwrap();
+    // let (endpoint, server_cert) = make_server_endpoint(server_addr)?;
+    let cert = rcgen::generate_simple_self_signed(vec!["localhost".into()]).unwrap();
+    let cert_der = cert.serialize_der().unwrap();
+    // // accept a single connection
+    // let endpoint2 = endpoint.clone();
+    // tokio::spawn(async move {
+    //     let incoming_conn = endpoint2.accept().await.unwrap();
+    //     let conn = incoming_conn.await.unwrap();
+    //     println!(
+    //         "[server] connection accepted: addr={}",
+    //         conn.remote_address()
+    //     );
+    //     // Dropping all handles associated with a connection implicitly closes it
+    // });
 
-    let endpoint = make_client_endpoint("0.0.0.0:0".parse().unwrap(), &[&server_cert])?;
+    let endpoint = make_client_endpoint("0.0.0.0:0".parse().unwrap(), &[&cert_der])?;
     // connect to server
     let connection = endpoint
         .connect(server_addr, "localhost")
